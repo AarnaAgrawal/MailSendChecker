@@ -7,5 +7,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         );
         const email = (box?.innerText || "").toLowerCase();
         sendResponse({ email });
+        console.log(email);
     }
 });
