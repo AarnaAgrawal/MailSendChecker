@@ -2,12 +2,17 @@ console.log("CONTENT SCRIPT ACTIVE");
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     console.log("MESSAGE RECEIVED:", msg);
+
     if (msg.type === "GET_EMAIL") {
+
         const selectors = [
-            '[aria-label="Message Body"]',
-            '[role="textbox"][contenteditable="true"]'
+            'div[contenteditable="true"][role="textbox"]',
+            'div[contenteditable="true"]',
+            'textarea'
         ];
+
         let box = null;
+
         for (let sel of selectors) {
             box = document.querySelector(sel);
             if (box) {
@@ -15,14 +20,21 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                 break;
             }
         }
-        console.log("BOX VALUE:", box?.value);
-        console.log("BOX TEXT:", box?.innerText);
-        console.log("BOX INNERHTML:", box?.innerHTML);
+
         console.log("BOX:", box);
-        const email = (box?.value || box?.innerText || "").toLowerCase();
+        console.log("BOX INNERTEXT:", box?.innerText);
+        console.log("BOX TEXTCONTENT:", box?.textContent);
+        console.log("BOX VALUE:", box?.value);
+
+        const email = (
+            box?.value ||
+            box?.innerText ||
+            box?.textContent ||
+            ""
+        ).toLowerCase();
+
         console.log("RAW EMAIL:", email);
-        const allBoxes = document.querySelectorAll('[role="textbox"], textarea');
-        console.log("ALL POSSIBLE BOXES:", allBoxes);
+
         sendResponse({ email });
     }
 
