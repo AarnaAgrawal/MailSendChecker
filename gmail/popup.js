@@ -1,6 +1,8 @@
 document.getElementById("button").addEventListener("click", () => {
     const box = document.querySelector('[aria-label="Message Body"]');
     const email = (box?.innerText || "").toLowerCase();
+    console.log(box);
+    console.log(email);
     const curseWords = ["shit", "ass"];
     const found = curseWords.some(word =>
         new RegExp(`\\b${word}\\b`, "i").test(email)
