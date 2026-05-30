@@ -1,3 +1,4 @@
+alert("running");
 console.log("loaded 2");
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.type === "GET_EMAIL") {
