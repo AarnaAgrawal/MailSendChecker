@@ -1,14 +1,34 @@
-alert("running");
-console.log("loaded 2");
+console.log("CONTENT SCRIPT ACTIVE");
+
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    console.log("message", msg)
+    console.log("MESSAGE RECEIVED:", msg);
+
     if (msg.type === "GET_EMAIL") {
-        const box = document.querySelector(
-            '[aria-label="Message Body"]'
-        );
-        console.log("box", box)
-        const email = (box?.innerText || "").toLowerCase();
+
+        const selectors = [
+            '[aria-label="Message Body"]',
+            '[role="textbox"][contenteditable="true"]'
+        ];
+
+        let box = null;
+
+        for (let sel of selectors) {
+            box = document.querySelector(sel);
+            if (box) {
+                console.log("FOUND WITH:", sel);
+                break;
+            }
+        }
+
+        console.log("BOX:", box);
+
+        const email = box ? box.innerText : "";
+
+        console.log("RAW EMAIL:", email);
+
         sendResponse({ email });
-        console.log("email", email);
+
     }
+
+    return true;
 });
