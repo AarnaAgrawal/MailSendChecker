@@ -1,3 +1,4 @@
+console.log("loaded1");
 document.getElementById("button").addEventListener("click", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(
