@@ -15,9 +15,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                 break;
             }
         }
+        console.log("BOX VALUE:", box?.value);
+        console.log("BOX TEXT:", box?.innerText);
+        console.log("BOX INNERHTML:", box?.innerHTML);
         console.log("BOX:", box);
         const email = (box?.value || box?.innerText || "").toLowerCase();
         console.log("RAW EMAIL:", email);
+        const allBoxes = document.querySelectorAll('[role="textbox"], textarea');
+        console.log("ALL POSSIBLE BOXES:", allBoxes);
         sendResponse({ email });
     }
 
