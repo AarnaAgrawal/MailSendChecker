@@ -5,6 +5,7 @@ document.getElementById("button").addEventListener("click", () => {
             tabs[0].id,
             { type: "GET_EMAIL" },
             (response) => {
+                console.log("response", response)
                 const email = (response.email || "").toLowerCase();
                 const curseWords = ["shit", "ass"];
                 const found = curseWords.some(word =>
