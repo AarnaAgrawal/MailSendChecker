@@ -1,19 +1,19 @@
 document.getElementById("button").addEventListener("click", () => {
-    const box = document.querySelector('[aria-label="Message Body"]');
-    const email = (box?.innerText || "").toLowerCase();
-    console.log(box);
-    console.log(email);
-    console.log(
-        document.querySelectorAll('div[role="textbox"][contenteditable="true"]')
-    );
-    const curseWords = ["shit", "ass"];
-    const found = curseWords.some(word =>
-        new RegExp(`\\b${word}\\b`, "i").test(email)
-    );
-    const result = document.getElementById("result");
-    if (found) {
-        result.textContent = "This email contains curse words."
-    } else {
-        result.textContent = "No curse words found."
-    }
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(
+            tabs[0].id,
+            { type: "GET_EMAIL" },
+            (response) => {
+                const email = (response.email || "").toLowerCase();
+                const curseWords = ["shit", "ass"];
+                const found = curseWords.some(word =>
+                    new RegExp(`\\b${word}\\b`, "i").test(email)
+                );
+                const result = document.getElementById("result");
+                result.textContent = found
+                    ? "This email contains curse words."
+                    : "No curse words found.";
+            }
+        );
+    });
 });
