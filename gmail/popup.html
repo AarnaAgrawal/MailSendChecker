@@ -2,12 +2,37 @@
 <html>
 <head>
   <style>
-    body { width: 200px; font-family: sans-serif; }
-    h1 { font-size: 16px; color: #333; }
+    body { 
+      width: 200px; 
+      font-family: sans-serif;
+      background-color: #ffcbcb; 
+    }
+    h1 { 
+      font-size: 16px; color: #132743; 
+      padding-top: 7px;
+      padding-left: 5px;
+    }
+    button {
+      color: #6ca9c8;
+      background-color: #132743CC;
+      margin-top: 20px;
+      border-radius: 50px;
+    }
+    .header {
+      background-color: #ffb5b5;
+      height: 30px;
+      width: 200px;
+    }
+    button:hover {
+      color: #ffffff;
+      background-color: #407088;
+    }
   </style>
 </head>
 <body>
-  <h1>Hello, Chrome!</h1>
+  <div class="header">
+  <h1>Mail Send Checker!</h1>
+  </div>
   <button id="button">Check</button>
   <p id="result"></p>
   <script src="popup.js"></script>
